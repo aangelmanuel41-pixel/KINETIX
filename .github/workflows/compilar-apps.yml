@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sistema: [windows-latest, macos-15]
+        sistema: [windows-latest, macos-15-arm64]
 
     steps:
       - name: Obtener KINETIX
