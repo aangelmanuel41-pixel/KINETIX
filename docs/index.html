@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1024">
+  <meta name="description" content="KINETIX nació como proyecto escolar para aprender inglés jugando. Descubre su historia, prueba un reto de vocabulario y sigue el desarrollo de la app para Android.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KINETIX | Learn. Play. Move.">
+  <meta property="og:description" content="De un proyecto escolar a una experiencia de inglés que queremos compartir con más personas.">
+  <title>KINETIX — Aprende inglés en movimiento</title>
+  <style>
+    :root { color-scheme:dark; --bg:#090f20; --surface:#121b33; --surface2:#182542; --line:#344363; --text:#f4f7ff; --muted:#b2c0d6; --mint:#b8f46c; --cyan:#65e3ec; --violet:#a79af7; --max:1150px; }
+    *, *::before, *::after {box-sizing:border-box}
+    html {scroll-behavior:smooth}
+    body {margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    body::before {content:"";position:absolute;inset:0 0 auto;height:960px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 580px 460px at 78% 21%,#203c78aa,transparent 78%),radial-gradient(ellipse 450px 410px at 22% 11%,#21385e7d,transparent 80%)}
+    ::selection{background:var(--mint);color:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    button:not(:disabled),a{cursor:pointer}
+    button:focus-visible,a:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    .wrap{width:min(calc(100% - 44px),var(--max));margin-inline:auto}
+    .topbar{position:sticky;top:0;z-index:10;border-bottom:1px solid #ffffff14;background:#0b1225e8;backdrop-filter:blur(18px)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .logo{font-weight:1000;font-size:24px;letter-spacing:.14em;white-space:nowrap}
+    .logo .x{color:var(--mint)}
+    .links{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:650;color:var(--muted)}
+    .links a:hover{color:var(--text)}
+    .nav-cta{padding:11px 18px!important;color:#101a23!important;border-radius:12px;background:var(--mint);white-space:nowrap}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:50px;min-height:640px;padding-block:85px 90px}
+    .eyebrow,.section-tag{display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.19em;font-size:11px;font-weight:800;color:var(--cyan)}
+    .led{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 18px var(--mint)}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-weight:900;font-size:clamp(52px,6.3vw,91px);line-height:1.03;letter-spacing:-.065em;margin:26px 0 24px}
+    h1 em{font-style:normal;color:var(--mint)}
+    .intro{font-size:clamp(17px,1.65vw,20px);color:var(--muted);max-width:560px;line-height:1.78}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;font-weight:800;border-radius:15px;padding:15px 20px;border:1px solid transparent;transition:transform .2s,background .2s;font-size:14px}
+    .btn:hover:not(:disabled){transform:translateY(-2px)}
+    .btn-primary{color:#101a20;background:var(--mint)}
+    .btn-secondary{color:var(--text);background:#ffffff0d;border-color:#ffffff32}
+    .btn-disabled{background:#25324b;color:#d5ddeb;border-color:#415272;cursor:not-allowed;opacity:.85}
+    .hero-note{font-size:12px;color:#9eafca;margin-top:19px}
+    .preview{position:relative;min-width:0}
+    .preview::before{content:"";position:absolute;inset:10% -5%;background:#8df3cb2b;filter:blur(80px);border-radius:100%;z-index:-1}
+    .game-window{border:1px solid #7294ce7d;background:#0d1630;border-radius:27px;box-shadow:0 30px 90px #0009,0 0 0 8px #92aefa12;overflow:hidden;transform:rotate(2deg)}
+    .game-top{height:55px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #48608390;padding:0 22px;background:#131e3b}
+    .game-top strong{letter-spacing:.14em;font-size:12px}
+    .dots{display:flex;gap:6px}.dots span{width:8px;height:8px;border-radius:50%;background:#40577d}.dots span:first-child{background:var(--mint)}
+    .game-inner{padding:27px 27px 28px}
+    .level{font-size:10px;font-weight:800;letter-spacing:.21em;color:var(--cyan)}
+    .question{font-size:clamp(20px,2.3vw,30px);line-height:1.25;font-weight:850;margin:11px 0 22px;letter-spacing:-.035em}
+    .answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .answer{border:1px solid #45577c;background:#1c2a48;padding:15px 10px;text-align:center;border-radius:13px;font-weight:800;font-size:16px;color:var(--text);cursor:default}
+    .answer.active{background:#b8f46c20;border:2px solid var(--mint);color:var(--mint)}
+    .game-footer{display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding-top:18px;border-top:1px solid #405578;color:var(--muted);font-size:12px;gap:10px}
+    .coin{color:var(--mint);font-weight:900}.hand{font-size:28px;display:inline-block;animation:float 3s ease-in-out infinite}
+    .status-chip{position:absolute;bottom:-18px;left:-24px;border-radius:15px;border:1px solid #7396bb70;background:#172642;padding:12px 17px;box-shadow:0 10px 30px #0009;transform:rotate(-4deg);font-size:12px;font-weight:700}
+    .status-chip b{color:var(--mint)}
+    section{scroll-margin-top:105px}
+    .section{padding-block:90px}
+    .section-head{max-width:710px;margin-bottom:34px}
+    .section-head h2{font-size:clamp(32px,4vw,48px);line-height:1.15;letter-spacing:-.045em;margin:13px 0 14px}
+    .section-head p{color:var(--muted);font-size:17px}
+    .story{background:#0f1a30;border-block:1px solid #2e415a}
+    .story-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:65px;align-items:center}
+    .story-mark{display:flex;align-items:center;justify-content:center;min-height:310px;border-radius:26px;border:1px solid #3f5473;background:radial-gradient(circle at 50% 35%,#28445f,#111d34 70%);position:relative;overflow:hidden}
+    .story-mark::before,.story-mark::after{content:"";position:absolute;width:220px;height:220px;border:1px solid #b8f46c55;border-radius:50%}
+    .story-mark::after{width:295px;height:295px;border-color:#65e3ec3d}
+    .story-word{font-size:clamp(40px,6vw,70px);font-weight:950;letter-spacing:-.08em;z-index:1}
+    .story-word span{color:var(--mint)}
+    .story-text p{color:var(--muted);font-size:17px;line-height:1.85}
+    .story-text strong{color:#f3f8ff}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .feature{border:1px solid #344662;background:linear-gradient(145deg,#18243d,#101b31);border-radius:21px;padding:25px;min-height:222px}
+    .symbol{font-size:28px;line-height:1;margin-bottom:20px}
+    .feature h3{font-size:18px;letter-spacing:-.025em;margin-bottom:9px}
+    .feature p{font-size:14px;color:var(--muted)}
+    .demo{border:1px solid #3e567a;border-radius:25px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;background:#111c32}
+    .demo-copy{padding:43px;background:radial-gradient(circle at 10% 20%,#294b535e,transparent 68%),#172640}
+    .demo-copy h3{font-size:32px;letter-spacing:-.04em;line-height:1.15;margin:12px 0 14px}
+    .demo-copy p{color:var(--muted);margin-bottom:0}
+    .demo-area{padding:36px 28px}
+    .demo-head{display:flex;justify-content:space-between;align-items:center;color:var(--cyan);font-weight:800;font-size:11px;letter-spacing:.12em}
+    #demo-question{font-size:23px;font-weight:800;margin:20px 0}
+    .demo-answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .demo-answer{background:#233354;border:1px solid #4a6081;border-radius:11px;color:var(--text);padding:12px 8px;font-weight:750}
+    .demo-answer:hover:not(:disabled){background:#304469}
+    .demo-answer.correct{border-color:var(--mint);background:#b8f46c26;color:var(--mint)}
+    .demo-answer.wrong{border-color:#f49ea2;background:#eb676724}
+    .demo-answer:disabled{cursor:default}
+    #demo-feedback{min-height:42px;color:var(--muted);font-size:13px;margin-top:13px}
+    #next-question{color:var(--mint);background:transparent;border:0;padding:6px 0;font-weight:800}
+    .download-section{padding-block:35px 105px}
+    .download-card{border:1px solid #6d8c7f7a;background:radial-gradient(ellipse at 96% 4%,#67905738,transparent 55%),linear-gradient(130deg,#18283a,#142438);border-radius:28px;padding:43px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:35px}
+    .download-card h2{font-size:clamp(31px,4vw,46px);line-height:1.14;letter-spacing:-.045em;margin:12px 0}
+    .download-card p{color:var(--muted);max-width:640px;margin-bottom:0}
+    .download-actions{display:flex;flex-direction:column;gap:10px;min-width:230px;align-items:stretch}
+    #apk-label{font-size:12px;color:var(--muted);text-align:center;max-width:260px}
+    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:32px}
+    .road-step{border-left:2px solid #6d8199;padding-left:20px}
+    .road-step:first-child{border-color:var(--mint)}
+    .road-step strong{display:block;font-size:15px;margin:3px 0 8px}
+    .road-step p{font-size:13px;color:var(--muted);margin:0}
+    footer{border-top:1px solid #2b3850;padding-block:27px}
+    .footer-row{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#a5b5cd;font-size:13px}
+    .footer-row a:hover{color:var(--mint)}
+    @keyframes float{50%{transform:translateY(-9px) rotate(-10deg)}}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;gap:55px;padding-block:68px 90px}.hero-copy{max-width:680px}.preview{max-width:600px;width:100%;margin:0 auto}.story-grid{gap:30px}.features{grid-template-columns:repeat(2,1fr)}.download-card{grid-template-columns:1fr}.download-actions{align-items:flex-start}.download-actions>*{min-width:220px}}
+    @media(max-width:640px){.wrap{width:min(calc(100% - 32px),var(--max))}.nav{height:65px}.logo{font-size:21px}.links{gap:12px}.links a:not(.nav-cta){display:none}.nav-cta{padding:10px 12px!important;font-size:12px}.hero{min-height:unset;padding-block:54px 85px;gap:46px}h1{font-size:clamp(50px,12vw,70px)}.intro{font-size:16px}.game-window{transform:rotate(0)}.game-inner{padding:21px 17px}.status-chip{left:3px}.section{padding-block:62px}.section-head h2{font-size:32px}.story-grid,.demo{grid-template-columns:1fr}.story-mark{min-height:210px}.features{grid-template-columns:1fr}.feature{min-height:unset;padding:23px}.demo-copy,.demo-area{padding:27px 22px}.download-section{padding-block:24px 70px}.download-card{padding:27px}.roadmap{grid-template-columns:1fr;gap:20px}.footer-row{flex-direction:column;align-items:flex-start}.game-footer{flex-wrap:wrap}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a href="#contenido" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" onfocus="this.style.cssText='position:fixed;top:8px;left:8px;z-index:99;background:#b8f46c;color:#090f20;padding:9px'" onblur="this.style.cssText='position:absolute;left:-9999px'">Saltar al contenido</a>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="logo" href="#inicio" aria-label="KINETIX, inicio">KINETI<span class="x">X</span></a>
+      <div class="links">
+        <a href="#historia">Nuestra historia</a>
+        <a href="#juego">El juego</a>
+        <a href="#prueba">Mini reto</a>
+        <a class="nav-cta" href="#descargar">Android ↗</a>
+      </div>
+    </nav>
+  </header>
+  <main id="contenido">
+    <div id="inicio" class="wrap hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="led"></span> PROYECTO ESCOLAR · EN DESARROLLO</div>
+        <h1>LEARN.<br>PLAY.<br><em>MOVE.</em></h1>
+        <p class="intro">KINETIX transforma las preguntas de inglés en un juego de reflejos. Comenzó como una tarea escolar; hoy queremos que llegue a más personas.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#juego">Conoce KINETIX <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-secondary" href="#descargar">Versión Android <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="hero-note">El juego de escritorio existe como prototipo. La aplicación Android está en preparación.</p>
+      </div>
+      <div class="preview" aria-label="Ilustración conceptual del juego KINETIX">
+        <div class="game-window">
+          <div class="game-top"><div class="dots" aria-hidden="true"><span></span><span></span><span></span></div><strong>KINETIX / GAMEPLAY</strong><span style="color:#b8f46c;font-size:12px">● LIVE</span></div>
+          <div class="game-inner">
+            <div class="level">ENGLISH CHALLENGE · LEVEL 01</div>
+            <div class="question">What does <span style="color:#b8f46c">“cat”</span> mean?</div>
+            <div class="answers" aria-hidden="true"><div class="answer">Perro</div><div class="answer active">Gato ✓</div><div class="answer">Libro</div><div class="answer">Árbol</div></div>
+            <div class="game-footer"><span><span class="hand" aria-hidden="true">✋</span> Aprende moviéndote</span><span class="coin">✦ +10 PUNTOS</span></div>
+          </div>
+        </div>
+        <div class="status-chip"><span class="led"></span> <b>GAME ON</b> · Aprende jugando</div>
+      </div>
+    </div>
+    <section id="historia" class="section story">
+      <div class="wrap story-grid">
+        <div class="story-mark" aria-label="Logotipo de KINETIX"><div class="story-word">KINETI<span>X</span></div></div>
+        <div class="story-text">
+          <span class="section-tag">01 / CÓMO COMENZÓ</span>
+          <div class="section-head" style="margin-bottom:0"><h2>Empezó en el salón.<br>Queremos llevarlo más lejos.</h2></div>
+          <p>Al principio, KINETIX era <strong>un proyecto escolar para aprender inglés de una manera diferente</strong>. Conforme fuimos desarrollando sus mecánicas, preguntas y funciones, nos dimos cuenta de algo: ¿y si más estudiantes también pudieran jugarlo?</p>
+          <p>Seguimos aprendiendo, corrigiendo errores y construyendo paso a paso. La meta es que KINETIX crezca sin perder lo que lo hizo especial: <strong>aprender mientras te diviertes</strong>.</p>
+        </div>
+      </div>
+    </section>
+    <section id="juego" class="section wrap">
+      <div class="section-head"><span class="section-tag">02 / DESCUBRE EL JUEGO</span><h2>Inglés que se juega, no solo se memoriza.</h2><p>En el prototipo de computadora, KINETIX combina preguntas, movimiento y recompensas. Para Android estamos preparando una experiencia adaptada a la pantalla táctil.</p></div>
+      <div class="features">
+        <article class="feature"><div class="symbol" aria-hidden="true">📚</div><h3>Vocabulario y gramática</h3><p>Responde preguntas de inglés en distintos niveles de dificultad.</p></article>
+        <article class="feature"><div class="symbol" aria-hidden="true">✋</div><h3>Control por movimiento</h3><p>En computadora, utiliza la cámara para mover al personaje y atrapar respuestas.</p></article>
+        <article class="feature"><div class="symbol" aria-hidden="true">🪙</div><h3>Monedas y personajes</h3><p>Acumula puntos, desarrolla rachas y desbloquea recompensas dentro del juego.</p></article>
+        <article class="feature"><div class="symbol" aria-hidden="true">🎙️</div><h3>Tutor de inglés</h3><p>Un tutor de IA opcional forma parte del prototipo de escritorio y requiere conexión y configuración.</p></article>
+        <article class="feature"><div class="symbol" aria-hidden="true">🎨</div><h3>Opciones visuales</h3><p>El prototipo incluye varias paletas para mejorar la accesibilidad del juego.</p></article>
+        <article class="feature"><div class="symbol" aria-hidden="true">📱</div><h3>Camino a Android</h3><p>Estamos adaptando controles, rendimiento y diseño para teléfonos.</p></article>
+      </div>
+    </section>
+    <section id="prueba" class="section wrap" style="padding-top:20px">
+      <div class="demo">
+        <div class="demo-copy">
+          <span class="section-tag">03 / UNA PEQUEÑA PRUEBA</span>
+          <h3>¿Qué tanto inglés sabes?</h3>
+          <p>Prueba una pregunta aquí mismo. Es solo una demostración de la idea: el juego completo tendrá más mecánicas.</p>
+        </div>
+        <div class="demo-area">
+          <div class="demo-head"><span>MINI ENGLISH QUIZ</span><span id="demo-counter">01 / 03</span></div>
+          <div id="demo-question" aria-live="polite">¿Cómo se dice “gato” en inglés?</div>
+          <div class="demo-answers" id="demo-answers"></div>
+          <div id="demo-feedback" role="status" aria-live="polite">Selecciona una respuesta para comenzar.</div>
+          <button id="next-question" type="button">Otra pregunta →</button>
+        </div>
+      </div>
+    </section>
+    <section class="download-section wrap" id="descargar">
+      <div class="download-card">
+        <div>
+          <span class="section-tag"><span class="led"></span> 04 / PRÓXIMO LANZAMIENTO</span>
+          <h2>KINETIX para Android</h2>
+          <p>Estamos trabajando en la primera versión instalable para Android. Cuando el archivo APK esté disponible y probado, podrás descargarlo desde esta misma página.</p>
+        </div>
+        <div class="download-actions">
+          <a id="apk-download" class="btn btn-disabled" aria-disabled="true" tabindex="-1" role="button">APK en preparación ⏳</a>
+          <span id="apk-label">Aún no hay una versión Android publicada.</span>
+          <a class="btn btn-secondary" href="https://github.com/aangelmanuel41-pixel/KINETIX" target="_blank" rel="noopener noreferrer">Seguir el proyecto en GitHub ↗</a>
+        </div>
+      </div>
+      <div class="roadmap" aria-label="Etapas de desarrollo">
+        <div class="road-step"><span class="section-tag">ETAPA 01</span><strong>Prototipo escolar</strong><p>Juego de escritorio con preguntas, tiendas, cámara y tutor opcional.</p></div>
+        <div class="road-step"><span class="section-tag">ETAPA 02</span><strong>Versión Android</strong><p>Adaptación móvil, controles táctiles, pruebas y archivo APK.</p></div>
+        <div class="road-step"><span class="section-tag">ETAPA 03</span><strong>Compartir KINETIX</strong><p>Publicar una descarga funcional y continuar mejorando según las pruebas.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-row"><span>© <span id="year">2026</span> KINETIX · De un proyecto escolar a una idea más grande.</span><a href="https://github.com/aangelmanuel41-pixel/KINETIX" target="_blank" rel="noopener noreferrer">Ver desarrollo ↗</a></div></footer>
+  <script>
+    (function () {
+      'use strict';
+      document.getElementById('year').textContent = String(new Date().getFullYear());
+      var questions = [
+        {question:'¿Cómo se dice “gato” en inglés?',answers:['Dog','Cat','Book','Tree'],correct:1,explain:'Cat significa gato en inglés.'},
+        {question:'Completa: She ___ happy.',answers:['am','are','is','be'],correct:2,explain:'Con she usamos is en presente.'},
+        {question:'¿Qué significa “Good morning”?',answers:['Buenas noches','Hasta luego','Buenos días','Gracias'],correct:2,explain:'Good morning es un saludo de buenos días.'}
+      ];
+      var position = 0, answered = false;
+      var questionNode = document.getElementById('demo-question');
+      var answersNode = document.getElementById('demo-answers');
+      var feedbackNode = document.getElementById('demo-feedback');
+      var counterNode = document.getElementById('demo-counter');
+      function showQuestion() {
+        var q = questions[position];
+        answered = false;
+        questionNode.textContent = q.question;
+        counterNode.textContent = String(position + 1).padStart(2, '0') + ' / 03';
+        feedbackNode.textContent = 'Selecciona una respuesta para comenzar.';
+        answersNode.replaceChildren();
+        q.answers.forEach(function (answer, index) {
+          var button = document.createElement('button');
+          button.type = 'button'; button.className = 'demo-answer';
+          button.textContent = answer;
+          button.addEventListener('click', function () {
+            if (answered) return;
+            answered = true;
+            Array.from(answersNode.children).forEach(function (item, i) {
+              item.disabled = true;
+              if (i === q.correct) item.classList.add('correct');
+              else if (i === index) item.classList.add('wrong');
+            });
+            feedbackNode.textContent = (index === q.correct ? '¡Correcto! ' : 'Casi. ') + q.explain;
+          });
+          answersNode.appendChild(button);
+        });
+      }
+      document.getElementById('next-question').addEventListener('click', function () {
+        position = (position + 1) % questions.length;
+        showQuestion();
+      });
+      showQuestion();
+
+      // Habilitar el enlace solo cuando GitHub Releases tenga un APK publicado.
+      var apk = document.getElementById('apk-download');
+      var label = document.getElementById('apk-label');
+      fetch('https://api.github.com/repos/aangelmanuel41-pixel/KINETIX/releases/latest', {
+        headers: {'Accept':'application/vnd.github+json'}
+      }).then(function (response) {
+        if (!response.ok) throw new Error('Todavía no hay APK');
+        return response.json();
+      }).then(function (release) {
+        var asset = (release.assets || []).find(function (item) {
+          return /\.apk$/i.test(item.name || '') &&
+            typeof item.browser_download_url === 'string' &&
+            item.browser_download_url.indexOf('https://github.com/aangelmanuel41-pixel/KINETIX/releases/') === 0;
+        });
+        if (!asset) return;
+        apk.href = asset.browser_download_url;
+        apk.className = 'btn btn-primary';
+        apk.textContent = 'Descargar KINETIX para Android ↓';
+        apk.removeAttribute('aria-disabled');
+        apk.removeAttribute('tabindex');
+        apk.removeAttribute('role');
+        label.textContent = 'Versión publicada: ' + (release.tag_name || 'APK disponible');
+      }).catch(function () {
+        // Sin APK: mantenemos el estado de desarrollo, sin enlaces rotos.
+      });
+    }());
+  </script>
+</body>
+</html>
