@@ -2,7 +2,7 @@
 
 **KINETIX** es un prototipo educativo de escritorio en **Python + Pygame**. Practica vocabulario y gramática en inglés capturando respuestas con la cámara (reconocimiento de mano mediante MediaPipe) o con el ratón. Incluye monedas, tienda de mejoras, ajustes visuales y un **Tutor IA por voz** opcional.
 
-> **Importante:** GitHub aloja el código; **no ejecuta el juego Pygame dentro de una página web**. Para jugar se descarga y ejecuta en macOS o Windows. La publicación de instaladores `.app` y `.exe` será una fase posterior.
+> **¿Quieres jugar sin instalar Python?** Abre **[DESCARGAR APP](DESCARGAR_APP.md)**. GitHub Actions prepara versiones de prueba `KINETIX.exe` (Windows) y `KINETIX.app` (macOS Apple Silicon). Descárgalas solo cuando la compilación aparezca con marca verde; no son versiones firmadas ni probadas en dispositivos reales.
 
 ## Requisitos
 
