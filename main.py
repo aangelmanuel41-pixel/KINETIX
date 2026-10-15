@@ -5,6 +5,26 @@ import sys
 import threading
 import time
 from io import BytesIO
+
+# Al ejecutarse como app, guardar recursos y ajustes en una carpeta escribible.
+if getattr(sys, "frozen", False):
+    if sys.platform == "darwin":
+        DIRECTORIO_JUEGO = os.path.join(os.path.expanduser("~"), "Library", "Application Support", "KINETIX")
+    elif os.name == "nt":
+        DIRECTORIO_JUEGO = os.path.join(os.getenv("LOCALAPPDATA", os.path.expanduser("~")), "KINETIX")
+    else:
+        DIRECTORIO_JUEGO = os.path.join(os.path.expanduser("~"), ".local", "share", "KINETIX")
+    os.makedirs(DIRECTORIO_JUEGO, exist_ok=True)
+else:
+    DIRECTORIO_JUEGO = os.path.dirname(os.path.abspath(__file__))
+
+def ruta_juego(nombre):
+    # Primero los archivos incluidos en PyInstaller y luego recursos personales.
+    if getattr(sys, "frozen", False):
+        empaquetado = os.path.join(getattr(sys, "_MEIPASS", ""), nombre)
+        if os.path.isfile(empaquetado):
+            return empaquetado
+    return os.path.join(DIRECTORIO_JUEGO, nombre)
 from gtts import gTTS
 import numpy as np
 import pygame
@@ -28,7 +48,7 @@ def cargar_clave_openai():
 
     try:
         ruta_clave_local = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), ".openai_key"
+            DIRECTORIO_JUEGO, ".openai_key"
         )
         if os.path.exists(ruta_clave_local):
             with open(ruta_clave_local, "r", encoding="utf-8") as archivo:
@@ -70,11 +90,12 @@ except ImportError:
     print("[Advertencia] 'speech_recognition' no está instalado. Instálalo con: pip install SpeechRecognition pyaudio")
 
 # Descarga automática del modelo de MediaPipe
-if CAMARA_Y_MEDIAPIPE_DISPONIBLES and not os.path.exists("hand_landmarker.task"):
+RUTA_MODELO_MANO = ruta_juego("hand_landmarker.task")
+if CAMARA_Y_MEDIAPIPE_DISPONIBLES and not os.path.exists(RUTA_MODELO_MANO):
     try:
         url = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
         r = requests.get(url, timeout=15)
-        with open("hand_landmarker.task", "wb") as f:
+        with open(RUTA_MODELO_MANO, "wb") as f:
             f.write(r.content)
     except Exception as e:
         print(f"No se pudo descargar hand_landmarker.task automáticamente: {e}")
@@ -411,21 +432,21 @@ snd_malo = None
 snd_final = None
 snd_compra = None
 try:
-    if os.path.exists("inicio_juego.wav"):
-        snd_inicio = pygame.mixer.Sound("inicio_juego.wav")
-    if os.path.exists("sonido_agarrar_billete_moneda_diamante.wav"):
-        snd_bueno = pygame.mixer.Sound("sonido_agarrar_billete_moneda_diamante.wav")
-    if os.path.exists("sonido_metiorito_piedra.wav"):
-        snd_malo = pygame.mixer.Sound("sonido_metiorito_piedra.wav")
-    if os.path.exists("final_game_porcentaje.wav"):
-        snd_final = pygame.mixer.Sound("final_game_porcentaje.wav")
-        snd_compra = pygame.mixer.Sound("final_game_porcentaje.wav")
+    if os.path.exists(ruta_juego("inicio_juego.wav")):
+        snd_inicio = pygame.mixer.Sound(ruta_juego("inicio_juego.wav"))
+    if os.path.exists(ruta_juego("sonido_agarrar_billete_moneda_diamante.wav")):
+        snd_bueno = pygame.mixer.Sound(ruta_juego("sonido_agarrar_billete_moneda_diamante.wav"))
+    if os.path.exists(ruta_juego("sonido_metiorito_piedra.wav")):
+        snd_malo = pygame.mixer.Sound(ruta_juego("sonido_metiorito_piedra.wav"))
+    if os.path.exists(ruta_juego("final_game_porcentaje.wav")):
+        snd_final = pygame.mixer.Sound(ruta_juego("final_game_porcentaje.wav"))
+        snd_compra = pygame.mixer.Sound(ruta_juego("final_game_porcentaje.wav"))
 except Exception:
     pass
 
 # 7. GESTOR DE EMOJIS
-if not os.path.exists("emojis_cache"):
-    os.makedirs("emojis_cache")
+DIRECTORIO_EMOJIS = ruta_juego("emojis_cache")
+os.makedirs(DIRECTORIO_EMOJIS, exist_ok=True)
 
 def get_twemoji(emoji_char, size=(50,50)):
     if not emoji_char:
@@ -433,7 +454,7 @@ def get_twemoji(emoji_char, size=(50,50)):
         return surf
     codes = [f"{ord(c):x}" for c in emoji_char if ord(c) != 0xFE0F]
     codepoint = "-".join(codes)
-    ruta_local = os.path.join("emojis_cache", f"{codepoint}.png")
+    ruta_local = os.path.join(DIRECTORIO_EMOJIS, f"{codepoint}.png")
     if os.path.exists(ruta_local):
         try:
             surf = pygame.image.load(ruta_local).convert_alpha()
@@ -623,14 +644,14 @@ def hand_landmarker_result_callback(result, output_image, timestamp_ms):
     current_hand_result = result
 
 hands = None
-if CAMARA_Y_MEDIAPIPE_DISPONIBLES and os.path.exists("hand_landmarker.task"):
+if CAMARA_Y_MEDIAPIPE_DISPONIBLES and os.path.exists(RUTA_MODELO_MANO):
     try:
         BaseOptions = mp.tasks.BaseOptions
         HandLandmarker = mp.tasks.vision.HandLandmarker
         HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
         VisionRunningMode = mp.tasks.vision.RunningMode
         options = HandLandmarkerOptions(
-            base_options=BaseOptions(model_asset_path="hand_landmarker.task"),
+            base_options=BaseOptions(model_asset_path=RUTA_MODELO_MANO),
             running_mode=VisionRunningMode.LIVE_STREAM,
             num_hands=1,
             min_hand_detection_confidence=0.7,
