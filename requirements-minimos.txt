@@ -1,0 +1,6 @@
+# Sin camara ni microfono, con control del raton
+pygame>=2.5,<3
+numpy>=1.26,<3
+requests>=2.31,<3
+gTTS>=2.5,<3
+openai>=1.70,<3
