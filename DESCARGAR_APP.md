@@ -8,7 +8,7 @@ No necesitas instalar Python, VS Code ni abrir el archivo `main.py`.
 2. Selecciona una ejecución de **Compilar aplicaciones KINETIX** que haya terminado correctamente (marca verde).
 3. Al final de la ejecución, en **Artifacts**, descarga el archivo correspondiente:
    - **Windows:** `KINETIX-windows-latest` → contiene `KINETIX-Windows.zip` con `KINETIX.exe`.
-   - **Mac:** `KINETIX-macos-15` → contiene `KINETIX-macOS.zip` con `KINETIX.app`.
+   - **Mac:** `KINETIX-macos-15-arm64` → contiene `KINETIX-macOS.zip` con `KINETIX.app`.
 4. Extrae el ZIP y abre la aplicación.
 
 **Nota:** GitHub requiere iniciar sesión para descargar artifacts. Los archivos temporales caducan; para un botón de descarga público sin cuenta en el futuro, hay que publicar una **Release**. Los archivos de Windows y macOS son diferentes.
