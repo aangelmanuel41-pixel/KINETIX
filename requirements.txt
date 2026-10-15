@@ -1,0 +1,10 @@
+# Python 3.11 (64-bit) recomendado
+pygame>=2.5,<3
+numpy>=1.26,<3
+mediapipe>=0.10,<0.11
+opencv-contrib-python>=4.8,<5
+requests>=2.31,<3
+gTTS>=2.5,<3
+SpeechRecognition>=3.10,<4
+PyAudio>=0.2.14,<1
+openai>=1.70,<3
